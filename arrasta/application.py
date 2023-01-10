@@ -132,7 +132,7 @@ class SearchPage(tk.Frame):
         # column value. [[column,value],column2=value2]
         entry = self.search_entrybox.get()
         if entry == "":
-            self. data_table.reset_table()
+            self.data_table.reset_table()
         else:
             entry_split = entry.split(",")
             column_value_pairs = {}
