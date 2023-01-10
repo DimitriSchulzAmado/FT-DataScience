@@ -55,8 +55,7 @@ class DataTable(ttk.Treeview):
         new_df = self.stored_dataframe
         for col, value in pairs.items():
             query_string = f"{col}.str.contains('{value}')"
-            new_df = new_df.query(query_string,
-                                  engine="python")  # engine identifica qual a linguagem que esta sendo usada
+            new_df = new_df.query(query_string,engine="python")  #  engine identifica qual a linguagem que esta sendo usada
 
         self._draw_table(new_df)
 
@@ -78,7 +77,7 @@ class SearchPage(tk.Frame):
         self.search_entrybox.place(relx=0.23, relwidth=0.75, y=650)
         self.search_entrybox.bind("<Return>", self.search_table)
 
-        # connect to aplication - Treeview
+        # connect to application - Treeview
         self.data_table = DataTable(parent)
         self.data_table.place(rely=0.05, relx=0.23, relwidth=0.75, relheight=0.89)
 
@@ -86,18 +85,18 @@ class SearchPage(tk.Frame):
 
     def drop_inside_list_box(self, event):
         file_paths = self._parse_drop_file(event.data)
-        current_list_box_items = set(self.file_name_listbox.get(0, "end"))
+        current_list_box_items = set(self.file_names_listbox.get(0, "end"))
         for file_path in file_paths:
             if file_path.endswith(".csv"):
                 path_object = Path(file_path)
                 file_name = path_object.name
                 if file_name not in current_list_box_items:
-                    self.files_names_listbox.insert("end", file_name)
+                    self.file_names_listbox.insert("end", file_name)
                     self.path_map[file_name] = file_path
 
     # double click in display file show data in Treeview
     def _display_file(self, event):
-        file_name = self.files_names_listbox.get(self.files_names_listbox.curselection())
+        file_name = self.file_names_listbox.get(self.file_names_listbox.curselection())
         path = self.path_map[file_name]
         df = pd.read_csv(path, encoding='latin-1')
         self.data_table.set_datatable(dataframe=df)
