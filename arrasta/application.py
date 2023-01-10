@@ -1,18 +1,21 @@
-from pathlib import Path
-import pandas as pd
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
+from tkinter.ttk import Frame
+import pandas as pd
 from tkdnd import DND_FILES
 from tkinterdnd2 import TkinterDnD
 
+'''A extensão tkdnd fornece uma interface para mecanismos nativos de arrastar e soltar
+específicos da plataforma . '''
+
 
 class Application(TkinterDnD.Tk):
-
     def __init__(self):
         super().__init__()
         self.title("Inatel-2023 CVS DataScience")
         self.main_frame = tk.Frame(self)
-        self.main_frame.pack(fill="both", expand="True")
+        self.main_frame.pack(fill="both", expand="true")
         self.geometry("1000x690")
         self.search_page = SearchPage(parent=self.main_frame)
 
@@ -65,11 +68,11 @@ class SearchPage(tk.Frame):
 
     def __init__(self, parent):
         super().__init__(parent)
-        self.files_names_listbox = tk.Listbox(parent, selectmode=tk.SINGLE, background="#2f9599")
-        self.files_names_listbox.place(relheight=1, relwidth=0.20)
-        self.files_names_listbox.drop_tanget_register(DND_FILES)
-        self.files_names_listbox.dnd_bind("<<Drop>>", self.drop_inside_list_box)
-        self.files_names_listbox.bind("<Double-1>", self._display_file)
+        self.file_names_listbox = tk.Listbox(parent, selectmode=tk.SINGLE, background="#2f9599")
+        self.file_names_listbox.place(relheight=1, relwidth=0.20)
+        self.file_names_listbox.drop_target_register(DND_FILES)
+        self.file_names_listbox.dnd_bind("<<Drop>>", self.drop_inside_list_box)
+        self.file_names_listbox.bind("<Double-1>", self._display_file)
 
         self.search_entrybox = tk.Entry(parent)
         self.search_entrybox.place(relx=0.23, relwidth=0.75, y=650)
